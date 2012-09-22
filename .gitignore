@@ -1,0 +1,7 @@
+resources/tmp/cache/templates/*
+resources/tmp/cache/*
+resources/tmp/logs/*
+composer.lock
+.DS_Store
+*.log
+.vagrant

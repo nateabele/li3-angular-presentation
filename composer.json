@@ -1,0 +1,10 @@
+{
+    "autoload": [],
+    "config": {
+        "bin-dir": "_build/bin/",
+        "vendor-dir": "libraries/"
+    },
+    "require": {
+        "UnionOfRAD/lithium": "dev-master"
+    }
+}

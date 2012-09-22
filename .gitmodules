@@ -1,0 +1,6 @@
+[submodule "libraries/lithium"]
+	path = libraries/lithium
+	url = git://github.com/UnionOfRAD/lithium.git
+[submodule "libraries/reveal.js"]
+	path = libraries/reveal.js
+	url = https://github.com/hakimel/reveal.js

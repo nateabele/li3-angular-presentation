@@ -1,0 +1,2 @@
+#!/bin/bash
+vagrant ssh -c 'cd /vagrant && libraries/lithium/console/li3 test tests/cases $0'
