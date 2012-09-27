@@ -1,0 +1,273 @@
+/*********************************************
+ * FONT-FACE DEFINITIONS
+ *********************************************/
+
+@font-face {
+	font-family: 'League Gothic';
+	src: url('../../lib/font/league_gothic-webfont.eot');
+	src: url('../../lib/font/league_gothic-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('../../lib/font/league_gothic-webfont.woff') format('woff'),
+		 url('../../lib/font/league_gothic-webfont.ttf') format('truetype'),
+		 url('../../lib/font/league_gothic-webfont.svg#LeagueGothicRegular') format('svg');
+
+	font-weight: normal;
+	font-style: normal;
+}
+
+.radial-gradient(@color1, @color2) {
+	background: -moz-radial-gradient(center, ellipse cover,                                     @color1 0%,               @color2 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,@color1), color-stop(100%,@color2));
+	background: -webkit-radial-gradient(center, ellipse cover,                                  @color1 0%,               @color2 100%);
+	background: -o-radial-gradient(center, ellipse cover,                                       @color1 0%,               @color2 100%);
+	background: -ms-radial-gradient(center, ellipse cover,                                      @color1 0%,               @color2 100%);
+	background: radial-gradient(center, ellipse cover,                                          @color1 0%,               @color2 100%);
+}
+
+.transition(@property, @speed, @metrics) {
+	-webkit-transition: @property @speed @metrics;
+	   -moz-transition: @property @speed @metrics;
+	    -ms-transition: @property @speed @metrics;
+	     -o-transition: @property @speed @metrics;
+	        transition: @property @speed @metrics;
+}
+
+.box-shadow(@x, @y, @offset, @color) {
+	-webkit-box-shadow: @x @y @offset @color;
+	   -moz-box-shadow: @x @y @offset @color;
+	        box-shadow: @x @y @offset @color;
+}
+
+/*********************************************
+ * GLOBAL STYLES
+ *********************************************/
+
+body {
+	font-family: 'Oswald', Times, 'Times New Roman', serif;
+	font-size: 36px;
+	font-weight: 200;
+	letter-spacing: -0.02em;
+	color: #eee;
+
+	background-color: #2b2b2b;
+	.radial-gradient(rgba(65,90,195,1), rgba(28,30,92,1));
+}
+
+.reveal {
+	/*********************************************
+	 * HEADERS
+	 *********************************************/
+	h1, h2, h3, h4, h5, h6 {
+		margin: 0 0 20px 0;
+		color: #eee;
+		font-family: 'Oswald', Impact, sans-serif;
+		line-height: 0.9em;
+		letter-spacing: 0.02em;
+		text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+	}
+	h1 {
+		text-transform: uppercase;
+	}
+	h1, input[type=text].title {
+		font-size: 3.25em;
+		line-height: 1.2em;
+	}
+	h1, h2 {
+		text-shadow: 0 1px 0 #ccc,
+					 0 2px 0 #c9c9c9,
+					 0 3px 0 #bbb,
+					 0 4px 0 #b9b9b9,
+					 0 5px 0 #aaa,
+					 0 6px 1px   rgba(0, 0, 0, 0.1),
+					 0 0 5px     rgba(0, 0, 0, 0.1),
+					 0 1px 3px   rgba(0, 0, 0, 0.3),
+					 0 3px 5px   rgba(0, 0, 0, 0.2),
+					 0 5px 10px  rgba(0, 0, 0, 0.25),
+					 0 20px 20px rgba(0, 0, 0, 0.15);
+	}
+	input[type=text].title {
+		width: 75%;
+	}
+	p {
+		letter-spacing: 0.04em;
+	}
+	input, textarea {
+		font-family: Monaco, "Lucida Console", "Courier New", Courier, sans-serif;
+		font-size: 100%;
+		line-height: 1.75em;
+
+		&.half {
+			width: 39%;
+			float: left;
+			margin-left: 2%;
+		}
+
+		&[type=number] {
+			width: 2em;
+		}
+	}
+
+	li {
+		letter-spacing: 0.03em;
+		font-size: 1.25em;
+		line-height: 1.75em;
+
+		&.title {
+			font-size: 1.75em;
+			line-height: 1.75em;
+		}
+	}
+	.subtitle {
+		margin-top: 0.75em;
+	}
+
+
+	/*********************************************
+	 * LINKS
+	 *********************************************/
+
+	a:not(.image) {
+		color: hsl(185, 85%, 50%);
+		text-decoration: none;
+		.transition(color, .15s, ease);
+
+		&:hover {
+			color: hsl(185, 85%, 70%);
+			text-shadow: none;
+			border: none;
+			border-radius: 2px;
+		}
+	}
+
+	.roll span:after {
+		color: #fff;
+		background: hsl(185, 60%, 35%);
+	}
+
+	/*********************************************
+	 * IMAGES
+	 *********************************************/
+
+	section img {
+		margin: 30px 0 0 0;
+		background: rgba(255,255,255,0.12);
+		border: 4px solid #eee;
+
+		.box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.15));
+		.transition(all, .2s, linear);
+	}
+
+	a:hover img {
+		background: rgba(255,255,255,0.2);
+		border-color: #13DAEC;
+		.box-shadow(0, 0, 20px, rgba(0, 0, 0, 0.55));
+	}
+
+	/*********************************************
+	 * NAVIGATION CONTROLS
+	 *********************************************/
+
+	.controls a {
+		color: #fff;
+
+		&.enabled {
+			color: hsl(185, 85%, 70%);
+			text-shadow: 0px 0px 2px hsla(185, 45%, 70%, 0.3);
+		}
+	}
+
+
+	/*********************************************
+	 * PROGRESS BAR
+	 *********************************************/
+
+	.progress {
+		background: rgba(0, 0, 0, 0.2);
+
+		span {
+			background: hsl(185, 85%, 50%);
+			.transition(width, 800ms, cubic-bezier(0.260, 0.860, 0.440, 0.985));
+		}
+	}
+
+	/*********************************************
+	 * CONTENT
+	 *********************************************/
+
+	.lithium {
+		padding: 1em 0.1em 1em 2.3em;
+		background: url(../../img/li3-icon.png) center left no-repeat;
+	}
+	.angular {
+		margin-left: 0.1em;
+		padding: 1em 0.1em 1em 1.75em;
+		background: url(../../img/angular-icon.png) center left no-repeat;
+
+		.suffix {
+			color: red;
+		}
+	}
+
+	.block {
+		width: 3em;
+		margin: auto;
+		padding: 0.75em 2em;
+		border-left: 2px solid white;
+		border-right: 2px solid white;
+		border-top: 2px solid white;
+
+		font-size: 1.4em;
+
+		&.red {
+			background: rgb(188, 70, 58);
+		}
+		&.green {
+			background: rgb(109, 188, 86);
+		}
+		&.blue {
+			background: rgb(37, 75, 145);
+			border-bottom: 2px solid white;
+		}
+	}
+
+	pre.language-html, pre.language-js {
+		font-family: 'Source Code Pro';
+		border: 0 !important;
+		background-color: white;
+		font-size: 0.75em;
+		line-height: 1.3em;
+		padding: 2% !important;
+		width: 120%;
+		margin-left: -10%;
+
+		&.half {
+			font-size: 0.5em;
+			width: 48%;
+			float: left;
+		}
+	}
+
+	#test-results {
+		background-color: #eeeeee;
+		font-size: 200%;
+		padding: 10px;
+		margin-top: 75px;
+		.box-shadow(5px, 5px, 10px, rgba(0, 0, 0, 0.15));
+	}
+
+	.leader {
+		position: absolute;
+		top: 45%;
+		left: 10%;
+		font-size: 3em;
+	}
+
+	a.leader {
+		color: #81E9F4;
+	}
+
+	h2.leader {
+		font-size: 3.4em;
+		top: 40%;
+		left: 20%;
+	}
+}
