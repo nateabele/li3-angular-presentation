@@ -115,7 +115,16 @@ Libraries::add('lithium');
  * Add the application.  You can pass a `'path'` key here if this bootstrap file is outside of
  * your main application, but generally you should not need to change any settings.
  */
-Libraries::add('todos', array('default' => true));
+Libraries::add('todos', array('default' => true, 'resources' => call_user_func(function() {
+	if (!is_dir($resources = str_replace("//", "/", sys_get_temp_dir() . '/resources'))) {
+		$paths = array($resources, "{$resources}/tmp/logs", "{$resources}/tmp/cache/templates");
+
+		foreach ($paths as $path) {
+			mkdir($path, 0777, true);
+		}
+	}
+	return $resources;
+})));
 
 /**
  * Add some plugins:
