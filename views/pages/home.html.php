@@ -902,6 +902,7 @@
 			<li>~700 commits</li>
 			<li>&gt; 60 contributors</li>
 			<li>~16 months</li>
+			<li><a href="https://github.com/UnionOfRAD/lithium/wiki/Releases-0.11">Changelog</a></li>
 		</ul>
 	</section>
 
@@ -910,13 +911,15 @@
 		<h2>Links</h2>
 
 		<ul>
-			<li>Lithium: <a href="http://lithify.me">lithify.me</a></li>
-			<li>AngularJS: <a href="http://angularjs.org">angularjs.org</a></li>
+			<li><a href="http://lithify.me">lithify.me</a>: Lithium</li>
+			<li><a href="http://angularjs.org">angularjs.org</a>: AngularJS</li>
 			<li>
-				li3_resources:
 				<a href="http://github.com/nateabele/li3_resources">
-					github.com/nateabele/li3_resources
-				</a>
+					github.com/nateabele/li3_resources</a>: li3_resources
+			</li>
+			<li>
+				<a href="https://github.com/nateabele/li3-angular-presentation">
+					github.com/nateabele/li3-angular-presentation</a>: This talk
 			</li>
 		</ul>
 	</section>
