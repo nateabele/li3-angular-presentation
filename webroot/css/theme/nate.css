@@ -25,3 +25,6 @@
 .reveal .leader{position:absolute;top:45%;left:10%;font-size:3em;}
 .reveal a.leader{color:#81E9F4;}
 .reveal h2.leader{font-size:3.4em;top:40%;left:20%;}
+.reveal .todos{margin-top:2.5em;border-radius:4px;background:#CFCFCF;-webkit-box-shadow:15px 15px 20px rgba(0, 0, 0, 0.15);-moz-box-shadow:15px 15px 20px rgba(0, 0, 0, 0.15);box-shadow:15px 15px 20px rgba(0, 0, 0, 0.15);padding:15px;width:50%;}.reveal .todos li{list-style-type:none;color:black;}.reveal .todos li .completed{text-decoration:line-through;}
+.reveal .todos li em{color:#999999;}
+.reveal .new-todo{margin:0.2em 0 0 1em;padding-left:0.2em;width:50%;}

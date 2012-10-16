@@ -18,6 +18,7 @@
  */
 use lithium\net\http\Router;
 use lithium\core\Environment;
+use li3_resources\net\http\Resources;
 
 /**
  * Here, we are connecting `'/'` (the base path) to controller called `'Pages'`,
@@ -45,6 +46,8 @@ if (!Environment::is('production')) {
 	Router::connect('/test/{:args}', array('controller' => 'lithium\test\Controller'));
 	Router::connect('/test', array('controller' => 'lithium\test\Controller'));
 }
+
+Router::connect(Resources::export(array('Todos')));
 
 /**
  * ### Database object routes

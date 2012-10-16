@@ -21,6 +21,7 @@ use lithium\core\Libraries;
 use lithium\net\http\Router;
 use lithium\core\Environment;
 use lithium\action\Dispatcher;
+use li3_resources\net\http\Resources;
 
 /**
  * This filter intercepts the `run()` method of the `Dispatcher`, and first passes the `'request'`
@@ -51,5 +52,7 @@ Dispatcher::applyFilter('run', function($self, $params, $chain) {
 	}
 	return $chain->next($self, $params, $chain);
 });
+
+Resources::bind("lithium\action\Dispatcher");
 
 ?>

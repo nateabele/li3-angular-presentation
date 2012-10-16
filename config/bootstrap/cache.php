@@ -47,10 +47,10 @@ Dispatcher::applyFilter('run', function($self, $params, $chain) {
 	}
 	$key = md5(LITHIUM_APP_PATH) . '.core.libraries';
 
-	if ($cache = Cache::read('default', $key)) {
-		$cache = (array) $cache + Libraries::cache();
-		Libraries::cache($cache);
-	}
+	// if ($cache = Cache::read('default', $key)) {
+	// 	$cache = (array) $cache + Libraries::cache();
+	// 	Libraries::cache($cache);
+	// }
 	$result = $chain->next($self, $params, $chain);
 
 	if ($cache != Libraries::cache()) {

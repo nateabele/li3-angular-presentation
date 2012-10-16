@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="demo">
 <head>
 	<?=$this->html->charset(); ?>
 	<title>Resource-Oriented Applications with AngularJS and Lithium</title>
@@ -14,6 +14,7 @@
 	<?=$this->html->script(array(
 		'jquery.min',
 		'angular.min',
+		'angular-resource-1.0.1.min.js',
 		// 'jquery-syntaxhighlighter/prettify.min',
 		'jquery.syntaxhighlighter.min',
 		'/lib/jasmine-1.2.0/jasmine',
@@ -54,17 +55,22 @@
 				}
 				$this[m](trim(replace(raw, pre), 3));
 
-				if (m === "text") {
+				if (m === "text" && $this.html().indexOf("^**") > 0) {
 					$this.html(replace($this.html(), post));
 				}
 			});
 		});
+
+		// Angular module initialization
+		var app = angular.module('demo', ['ngResource']);
+
 	</script>
 
 	<?=$this->scripts(); ?>
 	<?=$this->html->link('Icon', null, array('type' => 'icon')); ?>
 </head>
 <body>
+
 	<div class="reveal">
 		<?=$this->content(); ?>
 	</div>
@@ -116,6 +122,5 @@
 			});
 		})();
 	</script>
-
 </body>
 </html>

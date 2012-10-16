@@ -14,6 +14,7 @@
 		</h3>
 	</section>
 
+
 	<section>
 		<h2>Sponsored By</h2>
 		<?=$this->html->image('ey-logo.png', array('alt' => 'Engine Yard')); ?>
@@ -213,11 +214,13 @@
 
 			<hr />
 			<div>Total: {{ total() | currency: "$" }}</div>
+			<div>Customer Name: <input type="text" ng:model="customer.name" /></div>
 		</span>
 
 		<script type="text/javascript">
 			function CheckoutController($scope) {
 				$scope.items = $scope.items || [{ price: 0, qty: 0 }];
+				$scope.customer = $scope.customer || {};
 
 				$scope.total = function() {
 					if ($scope.items[$scope.items.length - 1].qty) {
@@ -417,10 +420,505 @@
 			{ "title": "On Tempting the Demo Gods", ... }
 		</pre>
 	</section>
-</div>
 
-<aside class="notes">
-	- Great for CRUD apps
-	- Most of the web is a CRUD app
-	- Like most programming, modeling with resources is a **design** problem
-</aside>
+	<section>
+		<h2>Resource Methods</h2>
+
+		<br />
+		<pre class="language-js" ng:non-bindable>
+			HTTP/1.1 <strong>201 Created</strong>
+			Location: <strong>http://app-server/posts/506403b2a08e776906000004</strong>
+			Content-Type: application/json; charset=UTF-8
+
+			{
+				"_id": "506403b2a08e776906000004",
+				"title": "On Tempting the Demo Gods",
+				....
+			}
+		</pre>
+	</section>
+
+	<section>
+		<h2>Putting it together</h2>
+
+		<div ng:controller="TodosController">
+			<ul class="todos">
+				<li ng:repeat="item in todos">
+					<input type="checkbox" ng:model="item.completed" />
+					<label
+						ng:class="{ completed: item.completed }"
+						ng:click="todos.remove($index)"
+					>{{ item.title }}</label>
+				</li>
+				<li ng:show="todos.isEmpty()"><em>Add to-do items below</em></li>
+			</ul>
+
+			<form ng:submit="todos.add(newTodo); newTodo = ''">
+				<input type="text" class="new-todo" placeholder="New to-do" ng:model="newTodo" />
+			</form>
+			<pre ng:show="todos.isFilled()">{{ todos }}</pre>
+		</div>
+
+		<script type="text/javascript">
+			function TodosController($scope) {
+				$scope.todos = $.extend([], {
+					add: function(item) {
+						this.push({ title: item, completed: false });
+					},
+					remove: function(index) {
+						this.splice(index, 1)[0];
+					},
+					isEmpty: function() {
+						return this.length === 0;
+					},
+					isFilled: function() {
+						return this.length >= 3;
+					}
+				});
+			}
+		</script>
+	</section>
+
+	<section>
+		<h2>Putting it together</h2>
+
+		<pre class="language-html" ng:non-bindable>
+			<div ng:controller="TodosController">
+				<ul class="todos">
+					<li ng:repeat="item in todos">
+						<input type="checkbox" ng:model="item.completed" />
+
+						<label
+							ng:class="{ completed: item.completed }"
+							ng:click="todos.remove($index)"
+						>{{ item.title }}</label>
+
+					</li>
+					<li ng:show="todos.isEmpty()">
+						<em>Add to-do items below</em>
+					</li>
+				</ul>
+				<form ng:submit="todos.add(newTodo); newTodo = ''">
+					<input type="text" ng:model="newTodo" />
+				</form>
+				<pre ng:show="todos.isFilled()">{{ todos }}</pre>
+			</div>
+		</pre>
+	</section>
+
+	<section>
+		<h2>Putting it together</h2>
+
+		<br />
+		<pre class="language-js" ng:non-bindable>
+			function TodosController($scope) {
+				$scope.todos = $.extend([], {
+					add: function(item) {
+						this.push({ title: item, completed: false });
+					},
+					remove: function(index) {
+						this.splice(index, 1);
+					},
+					isEmpty: function() {
+						return this.length === 0;
+					},
+					isFilled: function() {
+						return this.length >= 3;
+					}
+				});
+			}
+		</pre>
+	</section>
+
+	<section>
+		<h2>Putting it together</h2>
+
+		<br /><br />
+		<h3>
+			<pre class="language-js" style="text-align: center;">
+
+			$.ajax({ data: $scope.todos }) ?
+
+
+			</pre>
+		</h3>
+	</section>
+
+	<section>
+		<h2 class="leader" style="text-align: center; padding-left: 0.8em;">Wrong!</h2>
+	</section>
+
+	<section>
+		<h2>Putting it together</h2>
+
+		<div ng:controller="PersistentTodosController">
+
+			<ul class="todos">
+				<li ng:repeat="item in todos">
+					<input type="checkbox" ng:model="item.completed" />
+
+					<label
+						ng:class="{ completed: item.completed }"
+						ng:click="todos.remove($index)"
+					>{{ item.title }}</label>
+
+				</li>
+				<li ng:show="todos.isEmpty()">
+					<em>Add to-do items below</em>
+				</li>
+			</ul>
+
+			<form ng:submit="todos.add({ title: newTodo }); newTodo = ''">
+				<input type="text" ng:model="newTodo" />
+			</form>
+		</div>
+
+		<script type="text/javascript">
+			app.controller("PersistentTodosController", function($scope, $resource) {
+				var Todo = $resource("/todos/:id", { id: '@_id' });
+
+				$scope.todos = $.extend(Todo.query(), {
+					add: function(data) {
+						var list = this,
+							todo = new Todo($.extend(data, { completed: false }));
+
+						todo.$save(function() { list.push(todo); });
+					},
+					remove: function(index) {
+						var todo = this.splice(index, 1)[0];
+						todo.$delete();
+					},
+					isEmpty: function() {
+						return this.length === 0;
+					},
+					isFilled: function() {
+						return this.length >= 3;
+					}
+				});
+			});
+		</script>
+	</section>
+
+	<section>
+		<h2>Putting it together</h2>
+
+		<pre class="language-html" ng:non-bindable>
+			<ul class="todos">
+				<li ng:repeat="item in todos">
+					...
+				</li>
+
+				<li ng:show="todos.isEmpty()">
+					<em>Add to-do items below</em>
+				</li>
+			</ul>
+
+			<form ng:submit="todos.add(**{ title: newTodo }^**); newTodo = ''">
+				<input type="text" ng:model="newTodo" />
+			</form>
+		</pre>
+	</section>
+
+	<section>
+		<h2>Putting it together</h2>
+
+		<pre class="language-js" ng:non-bindable>
+			function TodosController($scope, <strong>$resource</strong>) {
+				<strong>var Todo = $resource("/todos/:id", { id: '@_id' });</strong>
+
+				$scope.todos = $.extend(<strong>Todo.query()</strong>, {
+					add: function(data) {
+						var list = this, todo = new Todo($.extend(data, {
+							completed: false
+						}));
+						todo.$save(function() { list.push(todo); });
+					},
+					remove: function(index) {
+						var todo = this.splice(index, 1)<strong>[0]</strong>;
+						todo.$delete();
+					},
+					...
+				});
+			});
+		</pre>
+	</section>
+
+	<section>
+		<h2>Putting it together: the backend</h2>
+
+		<pre class="language-js">
+			namespace todos\controllers;
+
+			use todos\models\Todos;
+
+			class TodosController extends \lithium\action\Controller {
+
+				// ...
+			}
+		</pre>
+	</section>
+
+	<section>
+		<h2>Putting it together: the backend</h2>
+
+		<pre class="language-js">
+			public function index() {
+				$todos = Todos::all();
+				return compact('todos');
+			}
+
+			public function add() {
+				$todo = Todos::create($data = $this->request->data);
+
+				if (($data) && $todo->save()) {
+					if ($this->request->accepts() === 'html') {
+						return $this->redirect(array(
+							'Todos::view', 'id' => $todo->_id
+						)));
+					}
+				}
+				return compact('todo');
+			}
+		</pre>
+	</section>
+
+	<section>
+		<h2 class="leader" style="text-align: center; padding-left: 0.8em;">Better:</h2>
+	</section>
+
+
+	<section>
+		<h2>Putting it together: the backend</h2>
+
+		<pre class="language-js">
+			class <strong>Todos</strong> extends <strong>\li3_resources\action\Resource</strong> {
+
+				public function index($request, $todos) {
+					return $todos;
+				}
+
+				public function add($request, $todo) {
+					$data = $request->data;
+					return ($data) ? $todo->save($data) : $todo;
+				}
+
+				// ...
+			}
+		</pre>
+	</section>
+
+
+	<section>
+		<h2>Putting it together: the backend</h2>
+
+		<pre class="language-js">
+			class Todos extends \li3_resources\action\Resource {
+
+				// ...
+
+				public function view($request, $todo) {
+					return $todo;
+				}
+
+				public function edit($request, $todo) {
+					$data = $request->data;
+					return ($data) ? $todo->save($data) : $todo;
+				}
+
+				public function delete($request, $todo) {
+					return $todo->delete();
+				}
+			}
+		</pre>
+	</section>
+
+
+	<section>
+		<h2>Examples</h2>
+
+		<br />
+		<ul>
+			<li>
+				<code>POST /session => </code>Log in
+			</li>
+			<li>
+				<code>GET /session => </code>Get current user
+			</li>
+			<li>
+				<code>DELETE /session => </code>Log out
+			</li>
+		</ul>
+	</section>
+
+
+	<section>
+		<h2>Examples</h2>
+
+		<pre class="language-js">
+			class Session extends \li3_resources\action\Resource {
+
+				protected $_binding = 'my_app\models\Users';
+
+				protected $_methods = array(
+					'GET'    => array('view' => null),
+					'POST'   => array('add' => null),
+					'DELETE' => array('delete' => null)
+				);
+
+				// ...
+			}
+		</pre>
+	</section>
+
+
+	<section>
+		<h2>Examples</h2>
+
+		<pre class="language-js">
+			class Session extends \li3_resources\action\Resource {
+
+				// ...
+
+				protected $_parameters = array(
+					'add' => array('session' => array(
+						'call' => 'create', 'required' => false
+					)),
+					'delete' => array('session' => array(
+						'call' => 'delete'
+					))
+				);
+
+				// ...
+			}
+		</pre>
+	</section>
+
+
+	<section>
+		<h2>Examples</h2>
+
+		<pre class="language-js">
+			class Session extends \li3_resources\action\Resource {
+
+				// ...
+
+				public function add($request, $session) {
+					return $session ? array(true, $session) : 401;
+				}
+
+				public function view($request, $session) {
+					return $session;
+				}
+
+				public function delete($request) {
+					return 204;
+				}
+			}
+		</pre>
+	</section>
+
+
+	<section>
+		<h2>Examples</h2>
+
+		<pre class="language-js">
+			Resources::handlers(array(
+				'session' => array(
+					function($request, array $resource) {
+						return $resource['binding']::current();
+					},
+					'create' => function($request, array $resource) {
+						return $resource['binding']::current($request);
+					},
+					'delete' => function($request, array $resource) {
+						return $resource['binding']::current(false);
+					}
+				)
+			));
+		</pre>
+	</section>
+
+
+	<section>
+		<h2>Examples</h2>
+
+		<pre class="language-js">
+			class Users extends Base {
+
+				// ...
+
+				public static function current($request = null) {
+					if ($request === false) {
+						return Auth::clear('default');
+					}
+					if ($request) {
+						$data = Auth::check('default', $request);
+					} else {
+						$data = Auth::check('default');
+					}
+					return $data ? static::create($data) : null;
+				}
+			}
+		</pre>
+	</section>
+
+
+	<section>
+		<h2>Future: Resource Links &amp; Nesting</h2>
+
+		<pre class="language-js" ng:non-bindable>
+			GET /posts/&lt;id&gt;
+			{
+				$links: {
+					self: "http://app/posts/&lt;id&gt;",
+					author: "http://app/users/&lt;user-id&gt;",
+					comments: "http://app/posts/&lt;id&gt;/comments"
+				},
+				...
+			 }
+
+			var user = post.$author();
+			var comments = post.$comments();
+		</pre>
+	</section>
+
+
+	<section>
+		<h2>Future</h2>
+
+		<br />
+		<ul>
+			<li>
+				<code>li3_docs</code> integration for API documentation via <code>OPTIONS</code>
+				(inspiration: <a href="http://twitter.com/CaseySoftware">@CaseySoftware</a>)
+			</li>
+		</ul>
+	</section>
+
+
+	<section>
+		<h2>Release: Lithium 0.11</h2>
+
+		<ul>
+			<li>~700 commits</li>
+			<li>&gt; 60 contributors</li>
+			<li>~16 months</li>
+		</ul>
+	</section>
+
+
+	<section>
+		<h2>Links</h2>
+
+		<ul>
+			<li>Lithium: <a href="http://lithify.me">lithify.me</a></li>
+			<li>AngularJS: <a href="http://angularjs.org">angularjs.org</a></li>
+			<li>
+				li3_resources:
+				<a href="http://github.com/nateabele/li3_resources">
+					github.com/nateabele/li3_resources
+				</a>
+			</li>
+		</ul>
+	</section>
+</div>

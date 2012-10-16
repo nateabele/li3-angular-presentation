@@ -270,4 +270,30 @@ body {
 		top: 40%;
 		left: 20%;
 	}
+
+	.todos {
+		margin-top: 2.5em;
+		border-radius: 4px;
+		background: #CFCFCF;
+		.box-shadow(15px, 15px, 20px, rgba(0, 0, 0, 0.15));
+		padding: 15px;
+		width: 50%;
+
+		li {
+			list-style-type: none;
+			color: black;
+
+			.completed {
+				text-decoration: line-through;
+			}
+			em {
+				color: #999999;
+			}
+		}
+	}
+	.new-todo {
+		margin: 0.2em 0 0 1em;
+		padding-left: 0.2em;
+		width: 50%;
+	}
 }
