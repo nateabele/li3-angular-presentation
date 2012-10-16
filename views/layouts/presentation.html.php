@@ -5,7 +5,7 @@
 	<title>Resource-Oriented Applications with AngularJS and Lithium</title>
 	<?=$this->html->style(array(
 		'oswald',
-		'reveal.js/main',
+		'reveal.js/reveal',
 		'/lib/reveal.js/css/zenburn',
 		'/lib/jasmine-1.2.0/jasmine'
 	)); ?>
