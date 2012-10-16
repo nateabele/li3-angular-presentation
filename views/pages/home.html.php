@@ -214,7 +214,6 @@
 
 			<hr />
 			<div>Total: {{ total() | currency: "$" }}</div>
-			<div>Customer Name: <input type="text" ng:model="customer.name" /></div>
 		</span>
 
 		<script type="text/javascript">
