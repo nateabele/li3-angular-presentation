@@ -4,6 +4,3 @@
 [submodule "libraries/reveal.js"]
 	path = libraries/reveal.js
 	url = https://github.com/hakimel/reveal.js
-[submodule "libraries/li3_resources"]
-	path = libraries/li3_resources
-	url = git@github.com:nateabele/li3_resources.git
