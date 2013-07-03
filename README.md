@@ -2,7 +2,7 @@
 
 My talk on integrating [Lithium](http://lithify.me) with [AngularJS](http://angularjs.org) to write rich, resourceful web applications using [li3_resources](https://github.com/nateabele/li3_resources).
 
- * View online at [li3-angular.lithium-framework.com](li3-angular.lithium-framework.com)
+ * View online at [li3-angular.lithium-framework.com](http://li3-angular.lithium-framework.com)
  * Or, install and run locally by doing the following:
 
 ```
